@@ -26,7 +26,7 @@ You perform these actions at your own risk. Possible consequences:
 
 ## 🔌 ST-Link Connection
 Before connecting, carefully check your ST-Link pinout as it may vary depending on your model.  
-![Pinout](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/main/img/stlink.png)
+![Pinout](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/stlink.png)
 
 **Important!** Disconnect the VCU from the scooter before starting.
 
@@ -41,7 +41,7 @@ Before connecting, carefully check your ST-Link pinout as it may vary depending 
 \*Soldering required (fragile contact!)  
 \*\*Used only for shorting to C45  
 
-![Contacts](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/main/img/pins.png)
+![Contacts](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/pins.png)
 
 ## 🔄 Modification Process
 
@@ -69,8 +69,9 @@ Change region? (Y/N): <u>**Y**</u>
 1. Unbind the scooter in the app
 2. Reconnect the VCU to the scooter (disconnect STLink first)
 3. Rebind and activate **both** toggles:  
-![Settings](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/main/img/ninebotsettings1.png)
+![Settings](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/ninebotsettings1.png)
 
+LICENSE
 ### 5. Final Step
 Repeat steps 1-3 to activate changes.  
 **Important!** Do not touch the sliders afterward!
