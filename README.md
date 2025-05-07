@@ -85,4 +85,12 @@ Repeat steps 1-3 to activate changes.
 
 ## ❌ Possible Errors
 - `open failed` → Check STLink connection to PC  
-- `init mode failed` → VCU connection error (check contacts)  
+- `init mode failed` → VCU connection error (check contacts)
+
+- if you got error that your SN already binded to other account:
+   1. run change_sn_windows_amd64.exe
+   2. chose your file MEMORY_G3.bin.patched.bin 
+   3. enter new SN, template 1CGCC++++C++++ where + is any number
+   4. it will create file with name MEMORY_G3.bin.patched.bin.sn_changed.bin
+   5. rename it to MEMORY_G3.bin.patched.bin
+   6. FLASH it again
