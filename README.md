@@ -14,6 +14,7 @@ You perform these actions at your own risk. Possible consequences:
 
 2. **Software**:
    - [STLink Driver]
+   - latest release.zip from https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/releases
    - [Modification Tool](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/releases/latest)
 
 ## 🛠 Preparation
