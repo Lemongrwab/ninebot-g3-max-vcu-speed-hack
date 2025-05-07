@@ -53,7 +53,7 @@
 5. загрузите любой hex редактор, например, https://mh-nexus.de/en/hxd/ либо используйте онлайн редактор https://hexed.it/
 6. откройте hex-редактор, откройте файл `MEMORY_G3.bin`.
 7. нажмите edit-> Goto (в других программах может быть go to offset)
-8. введите 1F020 или 0x1F020
+8. введите 1F020 или 0x1F020 и 1F420 или 0x1F420 
 9. вы должны увидеть свой серийный номер два раза, если нет, то ваш дамп !!!поврежден!!!! начинайте с начала
 ![Serial](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/serial.jpeg)
 
