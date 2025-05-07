@@ -83,3 +83,11 @@ Change region? (Y/N): <u>**Y**</u>
 ## ❌ Возможные ошибки
 - `open failed` → Проверьте подключение STLink к ПК
 - `init mode failed` → Ошибка подключения к VCU (проверьте контакты)
+
+- Если вы получили ошибку, что ваш SN уже привязан к другой учетной записи:
+   1. запустите change_sn_windows_amd64.exe
+   2. выберите ваш файл MEMORY_G3.bin.patched.bin 
+   3. введите новый SN, шаблон 1CGCC++++C++++, где + это любое число.
+   4. будет создан файл с именем MEMORY_G3.bin.patched.bin.sn_changed.bin
+   5. переименуйте его в MEMORY_G3.bin.patched.bin
+   6. Прошейте его снова
