@@ -6,9 +6,11 @@ You perform these actions at your own risk. Possible consequences:
 - VCU controller failure
 - Unstable scooter performance
 
+## Video instruction 
+- https://youtu.be/_yUZuQCp8Ss?si=v_mj0NYBr0DW54lo
+
 ![pr1](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/pr1.gif)
 ![pr2](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/pr2.gif)
-
 
 ## 📋 Required Components
 1. **Hardware**:
