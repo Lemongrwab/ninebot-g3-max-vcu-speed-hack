@@ -6,6 +6,9 @@ You perform these actions at your own risk. Possible consequences:
 - VCU controller failure
 - Unstable scooter performance
 
+## Video instruction 
+- https://youtu.be/_yUZuQCp8Ss?si=v_mj0NYBr0DW54lo
+
 ## 📋 Required Components
 1. **Hardware**:
    - ST-Link v2 programmer
