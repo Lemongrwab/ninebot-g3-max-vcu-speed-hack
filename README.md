@@ -6,6 +6,10 @@ You perform these actions at your own risk. Possible consequences:
 - VCU controller failure
 - Unstable scooter performance
 
+![pr1](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/pr1.gif)
+![pr2](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/pr2.gif)
+
+
 ## 📋 Required Components
 1. **Hardware**:
    - ST-Link v2 programmer
