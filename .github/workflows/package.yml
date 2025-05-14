@@ -13,37 +13,48 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout current repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Download latest release assets from Sharkboy-j/Ninebot-MAX-g3-VCU-tools
+      - name: Extract tag name (vX.Y.Z)
+        id: extract_tag
+        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+
+      - name: Download external binaries from Ninebot-MAX-g3-VCU-tools
         run: |
           repo="Sharkboy-j/Ninebot-MAX-g3-VCU-tools"
           api_url="https://api.github.com/repos/$repo/releases/latest"
           
-          for name in fix_vcu-windows-386.exe fix_vcu-linux-386 fix_vcu-darwin-arm64; do
-            url=$(curl -s "$api_url" | jq -r ".assets[] | select(.name == \"$name\") | .browser_download_url")
+          declare -A renames=(
+            [fix_vcu-windows-386.exe]=fix_vcu.exe
+            [fix_vcu-linux-386]=fix_vcu-linux-386
+            [fix_vcu-darwin-arm64]=fix_vcu-darwin-arm64
+          )
+
+          for src in "${!renames[@]}"; do
+            dst="${renames[$src]}"
+            url=$(curl -s "$api_url" | jq -r ".assets[] | select(.name == \"$src\") | .browser_download_url")
             if [ -z "$url" ]; then
-              echo "Asset $name not found in latest release!" >&2
+              echo "Asset $src not found!" >&2
               exit 1
             fi
-            echo "⬇Downloading $name"
-            curl -L -o "$name" "$url"
+            echo "Downloading $src → $dst"
+            curl -L -o "$dst" "$url"
           done
 
-      - name: Create ZIP archive
+      - name: Create ZIP archive release_v*.zip
         run: |
-          zip -r package.zip . -x ".git/*" ".github/*" "*.zip"
-          zip -g package.zip fix_vcu-windows-386.exe fix_vcu-linux-386 fix_vcu-darwin-arm64
+          ZIP_NAME="release_${{ steps.extract_tag.outputs.TAG }}.zip"
+          zip -r "$ZIP_NAME" . -x ".git/*" ".github/*" "*.zip"
+          zip -g "$ZIP_NAME" fix_vcu.exe fix_vcu-linux-386 fix_vcu-darwin-arm64
 
-      - name: Create GitHub Release
+      - name: Upload ZIP to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
+          tag_name: ${{ steps.extract_tag.outputs.TAG }}
+          name: ${{ steps.extract_tag.outputs.TAG }}
           body: |
-            release
-            - fix_vcu-windows-386.exe
-            - fix_vcu-linux-386
-            - fix_vcu-darwin-arm64
-          files: package.zip
+            - fix_vcu.exe (Windows)
+            - fix_vcu-linux-386 (Linux)
+            - fix_vcu-darwin-arm64 (Mac OS)
+          files: release_${{ steps.extract_tag.outputs.TAG }}.zip
