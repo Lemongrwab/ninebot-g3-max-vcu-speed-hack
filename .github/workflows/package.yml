@@ -1,0 +1,49 @@
+name: Release Packaged Repo
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+
+      - name: Download latest release assets from Sharkboy-j/Ninebot-MAX-g3-VCU-tools
+        run: |
+          repo="Sharkboy-j/Ninebot-MAX-g3-VCU-tools"
+          api_url="https://api.github.com/repos/$repo/releases/latest"
+          
+          for name in fix_vcu-windows-386.exe fix_vcu-linux-386 fix_vcu-darwin-arm64; do
+            url=$(curl -s "$api_url" | jq -r ".assets[] | select(.name == \"$name\") | .browser_download_url")
+            if [ -z "$url" ]; then
+              echo "Asset $name not found in latest release!" >&2
+              exit 1
+            fi
+            echo "⬇Downloading $name"
+            curl -L -o "$name" "$url"
+          done
+
+      - name: Create ZIP archive
+        run: |
+          zip -r package.zip . -x ".git/*" ".github/*" "*.zip"
+          zip -g package.zip fix_vcu-windows-386.exe fix_vcu-linux-386 fix_vcu-darwin-arm64
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: |
+            release
+            - fix_vcu-windows-386.exe
+            - fix_vcu-linux-386
+            - fix_vcu-darwin-arm64
+          files: package.zip
