@@ -60,8 +60,7 @@ Before connecting, carefully check your ST-Link pinout as it may vary depending 
 
 ### 2. Parameter Modification
 Run `fix_vcu.exe` and enter:  
-Speed (1-99): <u>**99**</u>  
->the tool accepts 1-255, but values above 99 don't work correctly  
+Follow program instructions. To move scooter to another region yopu have to modify SN
 
 Change region? (Y/N): <u>**Y**</u>  
 

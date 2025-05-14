@@ -58,9 +58,8 @@
 ![Serial](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/serial.jpeg)
 
 ### 2. Изменение параметров
-Запустите `fix_vcu.exe` и введите:
-Speed (1-99): <u>**99**</u>
->программа допускает ввод 1-255, но значения выше 99 не работает корректно
+Запустите `fix_vcu.exe`:
+Следуйте инструкциям программы. Чтобы сменить регион самоката необходимо изменить SN
 
 Change region? (Y/N): <u>**Y**</u>
 
