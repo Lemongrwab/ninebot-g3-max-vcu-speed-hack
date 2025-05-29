@@ -1,0 +1,67 @@
+name: Release Packaged Repo
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Extract tag name and commit message
+        id: vars
+        run: |
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
+          COMMIT_MSG=$(git for-each-ref refs/tags/$TAG_NAME --format='%(contents)')
+          echo "TAG=$TAG_NAME" >> "$GITHUB_OUTPUT"
+          echo "COMMIT_MSG<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$COMMIT_MSG" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Download external binaries from Ninebot-MAX-g3-VCU-tools
+        run: |
+          repo="Sharkboy-j/Ninebot-MAX-g3-VCU-tools"
+          api_url="https://api.github.com/repos/$repo/releases/latest"
+          
+          declare -A renames=(
+            [fix_vcu-windows-386.exe]=fix_vcu.exe
+            [fix_vcu-linux-386]=fix_vcu-linux-386
+            [fix_vcu-darwin-arm64]=fix_vcu-darwin-arm64
+          )
+
+          for src in "${!renames[@]}"; do
+            dst="${renames[$src]}"
+            url=$(curl -s "$api_url" | jq -r ".assets[] | select(.name == \"$src\") | .browser_download_url")
+            if [ -z "$url" ]; then
+              echo "Asset $src not found!" >&2
+              exit 1
+            fi
+            echo "Downloading $src → $dst"
+            curl -L -o "$dst" "$url"
+          done
+
+      - name: Create ZIP archive release_v*.zip
+        run: |
+          ZIP_NAME="release_${{ steps.vars.outputs.TAG }}.zip"
+          zip -r "$ZIP_NAME" . -x ".git/*" ".github/*" "*.zip"
+          zip -g "$ZIP_NAME" fix_vcu.exe fix_vcu-linux-386 fix_vcu-darwin-arm64
+
+      - name: Upload ZIP to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.vars.outputs.TAG }}
+          name: Release ${{ steps.vars.outputs.TAG }}
+          body: |
+            ${{ steps.vars.outputs.COMMIT_MSG }}
+            - fix_vcu.exe (Windows)
+            - fix_vcu-linux-386 (Linux)
+            - fix_vcu-darwin-arm64 (Mac OS)
+          files: release_${{ steps.vars.outputs.TAG }}.zip

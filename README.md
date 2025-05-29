@@ -50,18 +50,17 @@ Before connecting, carefully check your ST-Link pinout as it may vary depending 
 2. Run `dump_memory.bat`
 3. When the line `oocd\scripts/mem_helper.tcl", line 37` appears, disconnect the contact
 4. Verify the `MEMORY_G3.bin` file (128 KB) exists
-5. download ANY hex editor, for example https://mh-nexus.de/en/hxd/ or use online editor https://hexed.it/
+5. download ANY hex editor, for example https://mh-nexus.de/en/hxd/
 6. open hex editor, open your dump file `MEMORY_G3.bin`
 7. press edit-> Goto (in other programms maybe go to offset)
-8. enter 1F020 or 0x1F020 and 1F420 or 0x1F420 
+8. enter 1F020 or 0x1F020
 9. you should see your serial number two times, if not, your dump is !!!corrupted!!!! repeat again from start
 ![Serial](https://github.com/Sharkboy-j/ninebot-g3-max-vcu-speed-hack/raw/refs/heads/main/img/serial.jpeg)
 
 
 ### 2. Parameter Modification
 Run `fix_vcu.exe` and enter:  
-Speed (1-99): <u>**99**</u>  
->the tool accepts 1-255, but values above 99 don't work correctly  
+Follow program instructions. To move scooter to another region yopu have to modify SN
 
 Change region? (Y/N): <u>**Y**</u>  
 
